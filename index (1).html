@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hisab Khata</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f4fa;--card:#fff;--card2:#f6f8fc;--ink:#12203a;--mute:#5c6b88;--line:#dbe2ef;--pri:#2457c5;--inc:#0f8f68;--exp:#c62839;--chip:#1c3f99;--chipbg:#dbe6ff;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1020;--card:#111a30;--card2:#0d152a;--ink:#e8edf8;--mute:#8d9bb8;--line:#1f2b48;--pri:#2f66d0;--inc:#35d6a0;--exp:#ff7a8a;--chip:#a9c1ff;--chipbg:#1b2a52;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1020;--card:#111a30;--card2:#0d152a;--ink:#e8edf8;--mute:#8d9bb8;--line:#1f2b48;--pri:#2f66d0;--inc:#35d6a0;--exp:#ff7a8a;--chip:#a9c1ff;--chipbg:#1b2a52;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 Inter,"Hind Siliguri",system-ui,sans-serif}
+#app{max-width:560px;margin:0 auto}
+main{padding:14px 14px 150px}
+button,input,select{font:inherit;color:inherit}
+.hd{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#2fd0b0,#2f66d0);display:grid;place-items:center;color:#fff;font-weight:700;font-size:22px}
+.hd b{font-size:18px;display:block}.hd small,small{color:var(--mute)}
+h2{margin:4px 0 2px;font-size:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.chip{flex:none;padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:var(--card2);font-size:13px;cursor:pointer}
+.chip.on{background:var(--chipbg);color:var(--chip);border-color:transparent}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-weight:600;font-size:13px}
+label input,label select,.in2{width:100%;margin-top:5px;padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--card2);font-weight:400}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.pl{padding:5px 12px;border-radius:99px;background:var(--card2);border:1px solid var(--line);font-size:13px}
+.it{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-top:1px solid var(--line)}
+.it .r{text-align:right}.it small{display:block}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:99px;margin-top:6px}
+.pill.in{background:rgba(53,214,160,.14)}.pill.out{background:rgba(255,122,138,.14)}
+.in{color:var(--inc)}.out{color:var(--exp)}.due{color:#e8a23a}.pill.due{background:rgba(232,162,58,.16)}.big.sm{font-size:22px}.mrow{display:flex;align-items:center;gap:8px;margin:12px 0 4px}.cashc{background:linear-gradient(135deg,#5b2fb8,#7c4ae0 60%,#8b5cf6);color:#fff;border:0}.cashc small{color:rgba(255,255,255,.82)}.sub{background:rgba(255,255,255,.14);border-radius:10px;padding:8px 10px}
+.it button,.lnk{background:none;border:0;color:var(--mute);font-size:12px;padding:6px 0 0 10px;cursor:pointer}
+.big{font-size:32px;font-weight:700;margin:2px 0}
+.big+small{display:block}
+.bar{height:8px;border-radius:4px;background:var(--line);margin:4px 0 10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--pri)}
+.emp{text-align:center;color:var(--mute);padding:26px 10px}
+nav{position:fixed;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{background:none;border:0;padding:9px 0;font-size:11px;color:var(--mute);cursor:pointer}
+nav button b{display:block;font-size:18px}
+nav button.on{color:var(--chip)}
+.fab{position:fixed;right:max(14px,calc(50% - 266px));bottom:calc(72px + env(safe-area-inset-bottom,0px));background:var(--pri);color:#fff;border:0;border-radius:99px;padding:13px 20px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.35);cursor:pointer}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet form,.sheet .bx{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));border-radius:16px 16px 0 0;display:grid;gap:10px}
+.go{padding:13px;border:0;border-radius:10px;background:var(--pri);color:#fff;font-weight:700;cursor:pointer}
+.go.alt{background:var(--card2);color:var(--ink);border:1px solid var(--line)}
+:focus-visible{outline:2px solid var(--chip);outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const K="hisabkhata.mobile.v2",$=s=>document.querySelector(s),app=$("#app");
+let S={open:0,e:[]},tab="dash",F={r:"all",q:"",t:"",f:"",to:"",s:"new"},saved="",theme="dark",M={y:new Date().getFullYear(),m:new Date().getMonth()},QT="income",L="en";
+try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r);theme=localStorage.getItem(K+".t")||"dark";L=localStorage.getItem(K+".l")||"en"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const T={income:{l:"Income",s:1},expense:{l:"Expense",s:-1},deposit:{l:"Deposit",s:-1},given:{l:"Due given",s:-1},received:{l:"Due collected",s:1}};
+const p2=n=>String(n).padStart(2,"0"),dstr=d=>d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());
+const today=()=>dstr(new Date()),fd=i=>i.split("-").reverse().join("-");
+const money=n=>"৳"+Math.abs(n).toLocaleString("en-IN",{maximumFractionDigits:2});
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const sum=(l,t)=>l.filter(x=>x.t===t).reduce((s,x)=>s+x.a,0);
+const LOC=()=>L==="bn"?"bn-BD":"en-GB";
+const BN={"Hisab Khata":"হিসাব খাতা","Your shop's accounts":"আপনার দোকানের হিসাব","Good morning 👋":"শুভ সকাল 👋","Good afternoon 👋":"শুভ অপরাহ্ন 👋","Good evening 👋":"শুভ সন্ধ্যা 👋","Your accounts":"আপনার হিসাব","Search entries…":"এন্ট্রি খুঁজুন…","View reports":"রিপোর্ট দেখুন","Month:":"মাস:","Previous month":"আগের মাস","Next month":"পরের মাস","Cash in hand":"হাতে নগদ","Cash in today":"আজ নগদ এসেছে","Cash out today":"আজ নগদ গেছে","Cash in hand, last 6 months":"হাতে নগদ, গত ৬ মাস","Overall totals, from the start until now":"মোট হিসাব, শুরু থেকে এখন পর্যন্ত","Total income":"মোট আয়","Total expense":"মোট খরচ","Total deposit":"মোট জমা","Total due given":"মোট বাকি দেওয়া","Total due collected":"মোট বাকি আদায়","Outstanding due":"বাকি পাওনা","Cash flow":"ক্যাশ ফ্লো","Quick entry":"দ্রুত এন্ট্রি","Pick a type, type the amount, press Enter. Done!":"ধরন বাছুন, টাকা লিখুন, Enter চাপুন। হয়ে গেল!","Income":"আয়","Expense":"খরচ","Deposit":"জমা","Due":"বাকি দেওয়া","Due given":"বাকি দেওয়া","Due collected":"বাকি আদায়","What for? (e.g. shop sales)":"কিসের জন্য? (যেমন দোকানের বিক্রি)","Customer name":"কাস্টমারের নাম","Save entry":"এন্ট্রি সংরক্ষণ করুন","Latest entries":"সাম্প্রতিক এন্ট্রি","No entries yet. Tap “New entry” to add your first one.":"এখনো কোনো এন্ট্রি নেই। প্রথম এন্ট্রি যোগ করতে “নতুন এন্ট্রি” চাপুন।","No entries yet. Tap “New entry” to add one.":"এখনো কোনো এন্ট্রি নেই। যোগ করতে “নতুন এন্ট্রি” চাপুন।","No entries match these filters.":"এই ফিল্টারে কোনো এন্ট্রি মেলেনি।","Daily entries":"দৈনিক এন্ট্রি","Every entry, with the cash in hand after it":"প্রতিটি এন্ট্রি, সাথে তার পরে হাতে নগদ","Today":"আজ","Last 7 days":"গত ৭ দিন","This month":"এই মাস","Last month":"গত মাস","All time":"সব সময়","Search":"খুঁজুন","Description, category or name":"বিবরণ, ক্যাটাগরি বা নাম","Type":"ধরন","All types":"সব ধরন","Sort":"সাজান","Newest first":"নতুন আগে","Oldest first":"পুরনো আগে","From date":"শুরুর তারিখ","To date":"শেষ তারিখ","Clear filters":"ফিল্টার মুছুন","entries":"টি এন্ট্রি","Income:":"আয়:","Expense:":"খরচ:","Deposit:":"জমা:","Due given:":"বাকি দেওয়া:","Due collected:":"বাকি আদায়:","Edit":"সম্পাদনা","Delete":"মুছুন","Dues":"বাকি","Tap a name to see their entries":"নামে ট্যাপ করে তাঁর এন্ট্রি দেখুন","Owes you":"আপনাকে দেবে","You owe":"আপনি দেবেন","Settled":"পরিশোধিত","No dues yet. Add an entry of type “Due given” with a name to start tracking.":"এখনো কোনো বাকি নেই। নামসহ “বাকি দেওয়া” ধরনের এন্ট্রি যোগ করে শুরু করুন।","Reports":"রিপোর্ট","Income and expense by month":"মাস অনুযায়ী আয় ও খরচ","· Expense":"· খরচ","· Net":"· নিট","Expense by category":"ক্যাটাগরি অনুযায়ী খরচ","No income or expense yet. Reports appear after your first entries.":"এখনো আয় বা খরচ নেই। প্রথম এন্ট্রির পর রিপোর্ট দেখা যাবে।","Settings & backup":"সেটিংস ও ব্যাকআপ","Opening cash in hand (৳)":"শুরুর হাতে নগদ (৳)","Switch to light mode":"লাইট মোডে যান","Switch to dark mode":"ডার্ক মোডে যান","Backup":"ব্যাকআপ","Your data stays on this phone. Export it often and keep the text somewhere safe.":"আপনার ডেটা এই ফোনেই থাকে। নিয়মিত এক্সপোর্ট করে লেখাটি নিরাপদ জায়গায় রাখুন।","Export backup":"ব্যাকআপ এক্সপোর্ট","Import backup":"ব্যাকআপ ইম্পোর্ট","Delete all data":"সব ডেটা মুছুন","Nothing saved yet":"এখনো কিছু সংরক্ষিত হয়নি","Home":"হোম","Entries":"এন্ট্রি","Settings":"সেটিংস","+ New entry":"+ নতুন এন্ট্রি","New entry":"নতুন এন্ট্রি","Edit entry":"এন্ট্রি সম্পাদনা","Amount (৳)":"টাকার পরিমাণ (৳)","Date":"তারিখ","Description":"বিবরণ","Category":"ক্যাটাগরি","Name (required for dues)":"নাম (বাকির জন্য আবশ্যক)","Copy this text and keep it safe.":"এই লেখাটি কপি করে নিরাপদে রাখুন।","Close":"বন্ধ করুন","Paste your backup text. This replaces the current data.":"আপনার ব্যাকআপ লেখা পেস্ট করুন। এতে বর্তমান ডেটা বদলে যাবে।","Restore":"পুনরুদ্ধার","Delete this entry?":"এই এন্ট্রি মুছবেন?","Delete all entries and settings from this phone?":"এই ফোন থেকে সব এন্ট্রি ও সেটিংস মুছবেন?","Cancel":"বাতিল","OK":"ঠিক আছে","Enter an amount greater than 0.":"০-এর বেশি টাকার পরিমাণ দিন।","Enter a name for a due entry.":"বাকির এন্ট্রির জন্য নাম দিন।","That backup text is not valid. Copy it again from Export backup.":"ব্যাকআপ লেখাটি সঠিক নয়। এক্সপোর্ট ব্যাকআপ থেকে আবার কপি করুন।"};
+const RX=[[/^Cash flow and “this month” figures are for (.+)$/,"ক্যাশ ফ্লো ও “এই মাসের” হিসাব: $1"],[/^Opening cash (৳\S+) \+ income \+ due collected − expense − deposit − due given$/,"শুরুর নগদ $1 + আয় + বাকি আদায় − খরচ − জমা − বাকি দেওয়া"],[/^Net in (.+)$/,"$1 মাসে নিট"],[/^This month (.+)$/,"এই মাসে $1"],[/^Owed by (\d+) customer\(s\)$/,"$1 জন কাস্টমারের কাছে পাওনা"],[/^(.+): cash in hand at the end of each day$/,"$1: প্রতিদিন শেষে হাতে নগদ"],[/^Peak (.+)$/,"সর্বোচ্চ $1"],[/^Cash (−?৳.*)$/,"নগদ $1"],[/^Saved (.+)$/,"সংরক্ষিত: $1"],[/^Other( · .*)$/,"অন্যান্য$1"]];
+const dg=t=>t.replace(/[0-9]/g,d=>"০১২৩৪৫৬৭৮৯"[d]);
+function tx(t){const k=t.trim();if(!k)return t;let r=BN[k];if(r==null)for(const[a,b]of RX)if(a.test(k)){r=k.replace(a,b);break}return t.replace(k,()=>dg(r==null?k:r))}
+function tr(root){if(L!=="bn"||!root)return;const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),a=[];let n;while(n=w.nextNode())a.push(n);
+ a.forEach(n=>{if(/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.tagName))return;const v=tx(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v});
+ root.querySelectorAll("[placeholder],[aria-label]").forEach(e=>["placeholder","aria-label"].forEach(k=>{const v=e.getAttribute(k);if(v)e.setAttribute(k,tx(v))}))}
+function save(){try{localStorage.setItem(K,JSON.stringify(S));saved=fd(today())+", "+new Date().toTimeString().slice(0,8)}catch(e){saved="not saved"}}
+function calc(){let c=+S.open||0;const m={};S.e.slice().sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.id-b.id).forEach(x=>{c+=T[x.t].s*x.a;m[x.id]=c});return{m,cash:c}}
+function rng(r){const n=new Date(),t=today(),y=n.getFullYear(),m=n.getMonth();
+ if(r==="today")return[t,t];
+ if(r==="7d")return[dstr(new Date(Date.now()-6*864e5)),t];
+ if(r==="month")return[dstr(new Date(y,m,1)),dstr(new Date(y,m+1,0))];
+ if(r==="last")return[dstr(new Date(y,m-1,1)),dstr(new Date(y,m,0))];
+ return["",""]}
+function filt(){const[a,b]=F.r==="custom"?[F.f,F.to]:rng(F.r),q=F.q.toLowerCase();
+ return S.e.filter(x=>(!a||x.d>=a)&&(!b||x.d<=b)&&(!F.t||x.t===F.t)&&(!q||(x.desc+" "+x.cat+" "+x.name).toLowerCase().includes(q)))
+ .sort((x,y)=>(x.d<y.d?-1:x.d>y.d?1:x.id-y.id)*(F.s==="new"?-1:1))}
+function item(x,cm){const t=T[x.t],pos=t.s>0,c=t.s>0?"in":t.s<0?"out":"due";
+ return `<div class="it"><div><b>${esc(x.desc||x.cat||t.l)}</b><small>${fd(x.d)}${x.cat?" · "+esc(x.cat):""}${x.name?" · "+esc(x.name):""}</small><span class="pill ${c}">${t.l}</span></div><div class="r"><b class="${c}">${pos?"+":t.s<0?"−":""}${money(x.a)}</b><small>Cash ${cm[x.id]<0?"−":""}${money(cm[x.id])}</small><span><button data-a="edit" data-id="${x.id}">Edit</button><button data-a="del" data-id="${x.id}">Delete</button></span></div></div>`}
+function dueList(){const m={};S.e.forEach(x=>{if(x.t!=="given"&&x.t!=="received")return;const k=(x.name||"Unnamed").trim(),o=m[k]||(m[k]={n:k,b:0});o.b+=x.t==="given"?x.a:-x.a});return Object.values(m).sort((a,b)=>b.b-a.b)}
+function spark(v,w,h){const mx=Math.max(...v,1),mn=Math.min(...v,0),r=(mx-mn)||1,pts=v.map((y,i)=>[i/Math.max(v.length-1,1)*w,h-4-(y-mn)/r*(h-8)]),l=pts.map((q,i)=>(i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1)).join("");return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none" style="display:block"><path d="${l}L${w} ${h}L0 ${h}Z" fill="currentColor" opacity=".2"/><path d="${l}" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>`}
+function pg(){const c=calc(),t=today(),mo=rng("month"),
+ inR=(x,a,b)=>x.d>=a&&x.d<=b;
+ if(tab==="dash"){const ms=M.y+"-"+p2(M.m+1),mn=S.e.filter(x=>x.d.slice(0,7)===ms),td=S.e.filter(x=>x.d===t),
+ ml=new Date(M.y,M.m,1).toLocaleString(LOC(),{month:"long",year:"numeric"}),
+ inn=l=>sum(l,"income")+sum(l,"received"),out=l=>sum(l,"expense")+sum(l,"deposit")+sum(l,"given"),
+ od=dueList().filter(d=>d.b>0),odT=od.reduce((s,d)=>s+d.b,0),h=new Date().getHours(),
+ at=d=>(+S.open||0)+S.e.filter(x=>x.d<=d).reduce((s,x)=>s+T[x.t].s*x.a,0),
+ dn=new Date(M.y,M.m+1,0).getDate(),days=[...Array(dn)].map((_,i)=>at(ms+"-"+p2(i+1))),
+ six=[5,4,3,2,1,0].map(i=>at(dstr(new Date(M.y,M.m-i+1,0)))),net=inn(mn)-out(mn),
+ cd=(l,k,c)=>`<div class="card"><small>${l}</small><div class="big sm ${c}">${money(sum(S.e,k))}</div><small>This month ${money(sum(mn,k))}</small></div>`,
+ dueT=QT==="given"||QT==="received";
+ return `<small>${h<12?"Good morning":h<17?"Good afternoon":"Good evening"} 👋</small><h2 style="font-size:26px">Your accounts</h2><small>${new Date().toLocaleDateString(LOC(),{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</small>
+ <form id="ds" style="margin:12px 0 8px"><input class="in2" name="q" placeholder="Search entries…" style="margin:0"></form>
+ <button class="go alt" data-a="rep" style="width:100%">View reports</button>
+ <div class="mrow"><b>Month:</b><button class="chip" data-a="mp" aria-label="Previous month">‹</button><b style="flex:1;text-align:center">${ml}</b><button class="chip" data-a="mn" aria-label="Next month">›</button></div>
+ <small>Cash flow and “this month” figures are for ${ml}</small>
+ <div class="card cashc" style="margin-top:12px"><b>Cash in hand</b><div class="big" style="font-size:38px">${c.cash<0?"−":""}${money(c.cash)}</div><small>Opening cash ${money(S.open||0)} + income + due collected − expense − deposit − due given</small>
+ <div class="g" style="margin:10px 0"><div class="sub"><small>Cash in today</small><br><b>${money(inn(td))}</b></div><div class="sub"><small>Cash out today</small><br><b>${money(out(td))}</b></div></div>
+ <div class="sub" style="display:flex;justify-content:space-between"><small>Net in ${ml}</small><b>${net<0?"−":"+"}${money(net)}</b></div>
+ <small style="display:block;margin-top:8px">Cash in hand, last 6 months</small><div style="color:#fff;margin-top:4px">${spark(six,300,50)}</div></div>
+ <small style="display:block;margin:4px 2px 8px">Overall totals, from the start until now</small>
+ <div class="g">${cd("Total income","income","in")}${cd("Total expense","expense","out")}${cd("Total deposit","deposit","")}${cd("Total due given","given","due")}${cd("Total due collected","received","in")}
+ <div class="card"><small>Outstanding due</small><div class="big sm due">${money(odT)}</div><small>Owed by ${od.length} customer(s)</small></div></div>
+ <div class="card"><b>Cash flow</b><br><small>${ml}: cash in hand at the end of each day</small><div style="color:var(--chip);margin-top:8px">${spark(days,300,120)}</div><div style="display:flex;justify-content:space-between"><small>1</small><small>Peak ${money(Math.max(...days))}</small><small>${dn}</small></div></div>
+ <form id="qe" class="card"><b>Quick entry</b><br><small>Pick a type, type the amount, press Enter. Done!</small><div class="chips" style="margin-top:10px;flex-wrap:wrap">${Object.keys(T).map(k=>`<button type="button" class="chip ${QT===k?"on":""}" data-a="qt" data-v="${k}">${k==="given"?"Due":T[k].l}</button>`).join("")}</div>
+ <input class="in2" name="a" inputmode="decimal" placeholder="৳ 0" required><input class="in2" name="d" placeholder="What for? (e.g. shop sales)"><input class="in2" id="qn" name="n" placeholder="Customer name" style="display:${dueT?"":"none"}"><button class="go" style="width:100%;margin-top:10px">Save entry</button></form>`}
+ if(tab==="ent"){const ch=[["today","Today"],["7d","Last 7 days"],["month","This month"],["last","Last month"],["all","All time"]];
+  return `<h2>Daily entries</h2><small>Every entry, with the cash in hand after it</small><div class="card" style="margin-top:12px"><div class="chips">${ch.map(x=>`<button class="chip ${F.r===x[0]?"on":""}" data-a="rng" data-v="${x[0]}">${x[1]}</button>`).join("")}</div>
+  <label>Search<input data-f="q" value="${esc(F.q)}" placeholder="Description, category or name"></label>
+  <div class="g" style="margin-top:10px"><label>Type<select data-f="t"><option value="">All types</option>${Object.keys(T).map(k=>`<option value="${k}" ${F.t===k?"selected":""}>${T[k].l}</option>`).join("")}</select></label>
+  <label>Sort<select data-f="s"><option value="new" ${F.s==="new"?"selected":""}>Newest first</option><option value="old" ${F.s==="old"?"selected":""}>Oldest first</option></select></label>
+  <label>From date<input type="date" data-f="f" value="${F.r==="custom"?F.f:""}"></label><label>To date<input type="date" data-f="to" value="${F.r==="custom"?F.to:""}"></label></div>
+  <button class="lnk" data-a="clr" style="padding-left:0;margin-top:8px">Clear filters</button><div id="lst"></div></div>`}
+ if(tab==="dues"){const l=dueList();return `<h2>Dues</h2><small>Tap a name to see their entries</small><div class="card" style="margin-top:12px">${l.length?l.map(d=>`<div class="it" data-a="who" data-n="${esc(d.n)}" style="cursor:pointer"><div><b>${esc(d.n)}</b><small>${d.b>0?"Owes you":d.b<0?"You owe":"Settled"}</small></div><b class="${d.b>0?"in":d.b<0?"out":""}">${money(d.b)}</b></div>`).join(""):'<p class="emp">No dues yet. Add an entry of type “Due given” with a name to start tracking.</p>'}</div>`}
+ if(tab==="rep"){const ms={},cs={};S.e.forEach(x=>{const k=x.d.slice(0,7),o=ms[k]||(ms[k]={i:0,e:0});if(x.t==="income")o.i+=x.a;if(x.t==="expense"){o.e+=x.a;const g=x.cat||"Other";cs[g]=(cs[g]||0)+x.a}});
+  const ks=Object.keys(ms).sort().reverse(),mx=Math.max(1,...ks.map(k=>Math.max(ms[k].i,ms[k].e))),cat=Object.entries(cs).sort((a,b)=>b[1]-a[1]),cx=cat.length?cat[0][1]:1;
+  return `<h2>Reports</h2><small>Income and expense by month</small><div style="height:12px"></div>${ks.length?ks.map(k=>{const o=ms[k],n=o.i-o.e,d=new Date(k+"-01");return `<div class="card"><b>${d.toLocaleString(LOC(),{month:"long",year:"numeric"})}</b><div class="bar"><i style="width:${o.i/mx*100}%;background:var(--inc)"></i></div><div class="bar"><i style="width:${o.e/mx*100}%;background:var(--exp)"></i></div><small>Income <b class="in">${money(o.i)}</b> · Expense <b class="out">${money(o.e)}</b> · Net <b class="${n<0?"out":"in"}">${n<0?"−":""}${money(n)}</b></small></div>`}).join(""):'<div class="card emp">No income or expense yet. Reports appear after your first entries.</div>'}
+  ${cat.length?`<div class="card"><b>Expense by category</b><div style="height:8px"></div>${cat.map(c=>`<small>${esc(c[0])} · ${money(c[1])}</small><div class="bar"><i style="width:${c[1]/cx*100}%;background:var(--exp)"></i></div>`).join("")}</div>`:""}`}
+ return `<h2>Settings &amp; backup</h2><div class="card"><label>Opening cash in hand (৳)<input id="open" inputmode="decimal" value="${S.open||""}" placeholder="0"></label></div>
+ <div class="card"><button class="go alt" data-a="lang" style="width:100%;margin-bottom:10px">${L==="bn"?"Switch to English":"বাংলায় পরিবর্তন করুন"}</button><button class="go" data-a="theme" style="width:100%">Switch to ${theme==="dark"?"light":"dark"} mode</button></div>
+ <div class="card"><b>Backup</b><p><small>Your data stays on this phone. Export it often and keep the text somewhere safe.</small></p><div class="g"><button class="go alt" data-a="exp">Export backup</button><button class="go alt" data-a="imp">Import backup</button></div></div>
+ <div class="card"><button class="go alt" data-a="wipe" style="width:100%;color:var(--exp)">Delete all data</button></div><small>${saved?"Saved "+saved:"Nothing saved yet"}</small>`}
+function fill(){const l=filt(),cm=calc().m,el=$("#lst");if(!el)return;setTimeout(()=>tr(el),0);
+ const pl=Object.keys(T).filter(k=>l.some(x=>x.t===k)).map(k=>`<span class="pl">${T[k].l}: <b>${money(sum(l,k))}</b></span>`).join("");
+ el.innerHTML=`<div class="pills"><span class="pl"><b>${l.length}</b> entries</span>${pl}</div>`+(l.length?l.map(x=>item(x,cm)).join(""):`<p class="emp">${S.e.length?"No entries match these filters.":"No entries yet. Tap “New entry” to add one."}</p>`)}
+function render(){document.documentElement.lang=L==="bn"?"bn":"en";const tabs=[["dash","▦","Home"],["ent","☰","Entries"],["dues","⇄","Dues"],["rep","▥","Reports"],["set","⚙","Settings"]];
+ app.innerHTML=`<main><div class="hd"><div class="logo">৳</div><div><b>Hisab Khata</b><small>Your shop's accounts</small></div><button class="chip" data-a="lang" style="margin-left:auto" aria-label="Language">${L==="bn"?"EN":"বাংলা"}</button></div>${pg()}</main><button class="fab" data-a="new">+ New entry</button><nav>${tabs.map(t=>`<button class="${tab===t[0]?"on":""}" data-a="tab" data-v="${t[0]}"><b>${t[1]}</b>${t[2]}</nav>`.replace("</nav>","</button>")).join("")}</nav>`;
+ fill();tr(app)}
+function sheet(h,cb){const s=document.createElement("div");s.className="sheet";s.innerHTML=h;document.body.appendChild(s);s.onclick=e=>{if(e.target===s)s.remove()};cb(s);tr(s)}
+function form(id){const x=S.e.find(v=>v.id==id)||{t:"income",d:today(),a:"",cat:"",desc:"",name:""},cats=[...new Set(S.e.map(v=>v.cat).filter(Boolean))];
+ sheet(`<form><h2>${id?"Edit entry":"New entry"}</h2><label>Type<select name="t">${Object.keys(T).map(k=>`<option value="${k}" ${x.t===k?"selected":""}>${T[k].l}</option>`).join("")}</select></label>
+ <div class="g"><label>Amount (৳)<input name="a" inputmode="decimal" value="${x.a}" required></label><label>Date<input type="date" name="d" value="${x.d}" required></label></div>
+ <label>Description<input name="desc" value="${esc(x.desc)}"></label><div class="g"><label>Category<input name="cat" list="cl" value="${esc(x.cat)}"><datalist id="cl">${cats.map(c=>`<option value="${esc(c)}">`).join("")}</datalist></label><label>Name (required for dues)<input name="name" value="${esc(x.name)}"></label></div>
+ <button class="go">Save entry</button></form>`,s=>{const f=s.querySelector("form");f.onsubmit=e=>{e.preventDefault();const v=f.elements,a=parseFloat(v.a.value);
+  if(!(a>0))return note("Enter an amount greater than 0.");
+  if((v.t.value==="given"||v.t.value==="received")&&!v.name.value.trim())return note("Enter a name for a due entry.");
+  const n={id:id?x.id:Date.now(),t:v.t.value,a:a,d:v.d.value,desc:v.desc.value.trim(),cat:v.cat.value.trim(),name:v.name.value.trim()};
+  if(id)S.e[S.e.findIndex(v=>v.id==id)]=n;else S.e.push(n);save();s.remove();render()}})}
+function ask(msg,ok){sheet(`<div class="bx"><h2>${msg}</h2><div class="g"><button class="go alt" id="n">Cancel</button><button class="go" id="y">Delete</button></div></div>`,s=>{s.querySelector("#n").onclick=()=>s.remove();s.querySelector("#y").onclick=()=>{s.remove();ok()}})}
+function note(msg){sheet(`<div class="bx"><h2>${msg}</h2><button class="go">OK</button></div>`,s=>{s.querySelector(".go").onclick=()=>s.remove()})}
+function box(title,note,val,ro,btn,cb){sheet(`<div class="bx"><h2>${title}</h2><small>${note}</small><textarea class="in2" rows="6" ${ro?"readonly":""}></textarea><button class="go">${btn}</button></div>`,s=>{const t=s.querySelector("textarea");t.value=val;if(ro)t.onfocus=()=>t.select();s.querySelector(".go").onclick=()=>{cb(t.value);s.remove()}})}
+app.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
+ if(a==="tab"){tab=b.dataset.v;render()}
+ else if(a==="new")form();
+ else if(a==="edit")form(b.dataset.id);
+ else if(a==="del"){const id=b.dataset.id;ask("Delete this entry?",()=>{S.e=S.e.filter(x=>x.id!=id);save();render()})}
+ else if(a==="rng"){F.r=b.dataset.v;F.f=F.to="";render()}
+ else if(a==="clr"){F={r:"all",q:"",t:"",f:"",to:"",s:"new"};render()}
+ else if(a==="who"){F={r:"all",q:b.dataset.n,t:"",f:"",to:"",s:"new"};tab="ent";render()}
+ else if(a==="mp"||a==="mn"){M.m+=a==="mn"?1:-1;if(M.m<0){M.m=11;M.y--}if(M.m>11){M.m=0;M.y++}render()}
+ else if(a==="rep"){tab="rep";render()}
+ else if(a==="qt"){QT=b.dataset.v;document.querySelectorAll("#qe .chip").forEach(c=>c.classList.toggle("on",c.dataset.v===QT));$("#qn").style.display=(QT==="given"||QT==="received")?"":"none"}
+ else if(a==="lang"){L=L==="bn"?"en":"bn";try{localStorage.setItem(K+".l",L)}catch(x){}render()}
+ else if(a==="theme"){theme=theme==="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem(K+".t",theme)}catch(x){}render()}
+ else if(a==="exp")box("Backup","Copy this text and keep it safe.",JSON.stringify(S),1,"Close",()=>{});
+ else if(a==="imp")box("Import backup","Paste your backup text. This replaces the current data.","",0,"Restore",v=>{try{const d=JSON.parse(v);if(!d||!Array.isArray(d.e))throw 0;S=d;save();render()}catch(x){note("That backup text is not valid. Copy it again from Export backup.")}});
+ else if(a==="wipe"){ask("Delete all entries and settings from this phone?",()=>{S={open:0,e:[]};save();render()})}});
+app.addEventListener("input",e=>{const k=e.target.dataset.f;if(k==="q"){F.q=e.target.value;fill()}else if(e.target.id==="open"){S.open=parseFloat(e.target.value)||0;save()}});
+app.addEventListener("change",e=>{const k=e.target.dataset.f;if(!k||k==="q")return;F[k]=e.target.value;if(k==="f"||k==="to")F.r="custom";(k==="f"||k==="to")?render():fill()});
+app.addEventListener("submit",e=>{e.preventDefault();const f=e.target;
+ if(f.id==="ds"){F={r:"all",q:f.elements.q.value.trim(),t:"",f:"",to:"",s:"new"};tab="ent";render()}
+ else if(f.id==="qe"){const v=f.elements,a=parseFloat(v.a.value),due=QT==="given"||QT==="received";
+  if(!(a>0))return note("Enter an amount greater than 0.");
+  if(due&&!v.n.value.trim())return note("Enter a name for a due entry.");
+  S.e.push({id:Date.now(),t:QT,a:a,d:today(),desc:v.d.value.trim(),cat:"",name:due?v.n.value.trim():""});save();render()}});
+render();
+</script>
+</body>
+</html>
